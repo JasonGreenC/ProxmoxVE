@@ -27,7 +27,7 @@ echo "${RELEASE}" >"/opt/Scraparr_version.txt"
 curl -fsSL "https://github.com/thecfu/scraparr/archive/refs/tags/v${RELEASE}.tar.gz" -o "$temp_file"
 tar -zxf "$temp_file"
 mv "scraparr-${RELEASE}" /opt/scraparr
-pip -q install -r /opt/scraparr/src/scraparr/requirements.txt
+pip -q install -r /opt/scraparr/src/scraparr/requirements.txt --root-user-action=ignore
 chmod -R 755 /opt/scraparr
 mkdir /scraparr && mkdir /scraparr/config
 mv /opt/scraparr/config.yaml /scraparr/config/config.yaml
@@ -54,8 +54,8 @@ WantedBy=multi-user.target
 EOF
 
 systemctl daemon-reload
-systemctl enable scraparr
-systemctl start scraparr
+systemctl enable -q --now scraparr
+
 msg_ok "Configured Service"
 
 motd_ssh

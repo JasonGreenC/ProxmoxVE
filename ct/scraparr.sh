@@ -39,7 +39,7 @@ function update_script() {
     curl -fsSL "https://github.com/thecfu/scraparr/archive/refs/tags/v2.2.2.tar.gz" -o "$temp_file"
     tar -zxf "$temp_file"
     mv "scrappar-${RELEASE}" /opt/scrappar
-    pip -q install -r /opt/scrappar/src/scrappar/requirements.txt
+    pip -q install -r /opt/scrappar/src/scrappar/requirements.txt --root-user-action=ignore
     msg_ok "Updated ${APP}"
 
     msg_info "Starting Service"
@@ -58,4 +58,4 @@ description
 msg_ok "Completed Successfully!\n"
 echo -e "${CREATING}${GN}${APP} setup has been successfully initialized!${CL}"
 echo -e "${INFO}${YW} Access it using the following URL:${CL}"
-echo -e "${TAB}${GATEWAY}${BGN}http://${IP}:7878${CL}"
+echo -e "${TAB}${GATEWAY}${BGN}http://${IP}:7100${CL}"
