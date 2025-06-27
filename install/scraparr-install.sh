@@ -26,8 +26,8 @@ RELEASE=$(curl -fsSL https://api.github.com/repos/thecfu/scraparr/releases/lates
 echo "${RELEASE}" >"/opt/Scraparr_version.txt"
 curl -fsSL "https://github.com/thecfu/scraparr/archive/refs/tags/v${RELEASE}.tar.gz" -o "$temp_file"
 tar -zxf "$temp_file"
-mv "scrappar-${RELEASE}" /opt/scrappar
-pip -q install -r /opt/scrappar/src/scrappar/requirements.txt
+mv "scraparr-${RELEASE}" /opt/scraparr
+pip -q install -r /opt/scraparr/src/scraparr/requirements.txt
 chmod -R 755 /opt/scraparr
 mkdir /scraparr && mkdir /scraparr/config
 mv /opt/scraparr/config.yaml /scraparr/config/config.yaml
