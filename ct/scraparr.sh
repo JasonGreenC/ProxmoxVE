@@ -5,7 +5,7 @@ source <(curl -fsSL https://raw.githubusercontent.com/JasonGreenC/ProxmoxVE/refs
 # License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
 # Source: https://github.com/thecfu/scraparr
 
-APP="Scraparr"
+APP="scraparr"
 var_tags="${var_tags:-arr;monitoring}"
 var_cpu="${var_cpu:-2}"
 var_ram="${var_ram:-1024}"
