@@ -16,7 +16,7 @@ update_os
 PYTHON_VERSION="3.12" setup_uv
 
 msg_info "Installing Scraparr"
-fetch_and_deploy_gh_release "scrappar" "thecfu/scraparr"
+fetch_and_deploy_gh_release "scrappar" "thecfu/scraparr" "tarball" "latest" "/opt/scraparr"
 cd /opt/scraparr || exit
 $STD uv venv /opt/scraparr/.venv
 $STD /opt/scraparr/.venv/bin/python -m ensurepip --upgrade
