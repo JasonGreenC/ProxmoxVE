@@ -36,7 +36,8 @@ Wants=network-online.target
 After=network.target
 [Service]
 Type=simple
-ExecStart=/opt/scraparr/.venv/bin/python -m /opt/scraparr/src/scraparr/scraparr
+WorkingDirectory=/opt/scraparr/src
+ExecStart=/opt/scraparr/.venv/bin/python -m scraparr.scraparr
 User=root
 Restart=always
 [Install]
