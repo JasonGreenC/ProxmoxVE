@@ -30,13 +30,15 @@ function update_script() {
   fi
 
   RELEASE=$(curl -fsSL https://api.github.com/repos/thecfu/scraparr/releases/latest | grep "tag_name" | awk '{print substr($2, 3, length($2)-4) }')
-  if [[ ! -f /opt/${APP}_version.txt ]] || [[ "${RELEASE}" != "$(cat /opt/${APP}_version.txt)" ]]; then
+  if [[ ! -f "${HOME}/.scrappar" ]] || [[ "${RELEASE}" != "$(cat "${HOME}"/.scrappar)" ]]; then
     msg_info "Stopping Services"
     systemctl stop scraparr
     msg_ok "Services Stopped"
-    msg_info "Updating ${APP} to ${RELEASE}"
+
     PYTHON_VERSION="3.12" setup_uv
     fetch_and_deploy_gh_release "scrappar" "thecfu/scraparr" "tarball" "latest" "/opt/scraparr"
+
+    msg_info "Updating ${APP} to ${RELEASE}"
     cd /opt/scraparr || exit
     $STD uv venv /opt/scraparr/.venv
     $STD /opt/scraparr/.venv/bin/python -m ensurepip --upgrade
