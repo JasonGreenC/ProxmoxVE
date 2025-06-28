@@ -31,12 +31,10 @@ function update_script() {
 
   RELEASE=$(curl -fsSL https://api.github.com/repos/thecfu/scraparr/releases/latest | grep "tag_name" | awk '{print substr($2, 3, length($2)-4) }')
   if [[ ! -f /opt/${APP}_version.txt ]] || [[ "${RELEASE}" != "$(cat /opt/${APP}_version.txt)" ]]; then
-    msg_info "Updating ${APP} to ${RELEASE}"
-
     msg_info "Stopping Services"
     systemctl stop scraparr
     msg_ok "Services Stopped"
-
+    msg_info "Updating ${APP} to ${RELEASE}"
     PYTHON_VERSION="3.12" setup_uv
     fetch_and_deploy_gh_release "scrappar" "thecfu/scraparr" "tarball" "latest" "/opt/scraparr"
     cd /opt/scraparr || exit
@@ -45,12 +43,11 @@ function update_script() {
     $STD /opt/scraparr/.venv/bin/python -m pip install --upgrade pip
     $STD /opt/scraparr/.venv/bin/python -m pip install -r /opt/scraparr/src/scraparr/requirements.txt
     chmod -R 755 /opt/scraparr
+    msg_ok "Updated ${APP} to v${RELEASE}"
 
     msg_info "Starting Services"
     systemctl start scraparr
     msg_ok "Services Started"
-
-    msg_ok "Updated ${APP} to v${RELEASE}"
   else
     msg_ok "No update required. ${APP} is already at v${RELEASE}"
   fi
